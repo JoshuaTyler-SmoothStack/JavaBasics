@@ -13,11 +13,12 @@ public class LineTest {
     parallelTo();
   }
 
-  //region [TEST] getSlope()
+  // [TEST] getSlope()
   @Test
   void getSlope() {
     System.out.println("\n[TEST] Line.class - getSlope()");
     System.out.println("==================================");
+    System.out.println("#Test | Expected | Actual");
 
     // Setup
     boolean isPassing = true;
@@ -46,7 +47,7 @@ public class LineTest {
       try {
         double actual = l.getSlope();
         double expected = testResults[i];
-        String message = "expected: " + expected + " | result: " + actual;
+        String message = expected + " | " + actual;
         if (Math.abs(actual - expected) < 0.0001) {
           System.out.println(i + ": " + message);
         } else {
@@ -68,16 +69,14 @@ public class LineTest {
       System.err.println("Failed");
       fail();
     }
-    System.out.println("==================================");
   }
 
-  //endregion
-
-  //region [TEST] getDistance()
+  // [TEST] getDistance()
   @Test
   void getDistance() {
     System.out.println("\n[TEST] Line.class - getDistance()");
     System.out.println("==================================");
+    System.out.println("#Test | Expected | Actual");
 
     // Setup
     boolean isPassing = true;
@@ -102,7 +101,7 @@ public class LineTest {
       try {
         double actual = l.getDistance();
         double expected = testResults[i];
-        String message = "expected: " + expected + " | result: " + actual;
+        String message = expected + " | " + actual;
         if (Math.abs(actual - expected) < 0.0001) {
           System.out.println(i + ": " + message);
         } else {
@@ -122,16 +121,14 @@ public class LineTest {
       System.err.println("Failed");
       fail();
     }
-    System.out.println("==================================");
   }
 
-  //endregion
-
-  //region [TEST] parallelTo()
+  //[TEST] parallelTo()
   @Test
   void parallelTo() {
     System.out.println("\n[TEST] Line.class - parellelTo()");
     System.out.println("==================================");
+    System.out.println("#Test | Expected | Actual");
 
     // Setup
     boolean isPassing = true;
@@ -157,7 +154,7 @@ public class LineTest {
       try {
         boolean actual = l1.parallelTo(l2);
         boolean expected = testResults[i];
-        String message = "expected: " + expected + " | result: " + actual;
+        String message = expected + " | " + actual;
         if (actual == expected) {
           System.out.println(i + ": " + message);
         } else {
@@ -177,7 +174,5 @@ public class LineTest {
       System.err.println("Failed");
       fail();
     }
-    System.out.println("==================================");
   }
-  //endregion
 }
