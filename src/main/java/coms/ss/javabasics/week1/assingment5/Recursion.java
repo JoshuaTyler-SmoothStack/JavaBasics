@@ -23,56 +23,8 @@ public class Recursion {
    * @return bool sum is possible
    */
   public static boolean groupSumClump(Integer[] array, Integer valueToSum) {
-    Integer[][] clumpedValuesArray = getClumpedValues(array);
-    List<Integer> clumpedValues = new ArrayList<Integer>();
-    List<Integer> deClumpedValues = new ArrayList<Integer>();
-
-    // Iterarte through the array, restructuring clumpedValues as the
-    // sum of their whole (as clumpedValues are inclusive or excluseive)
-    for (int i = 0; i < clumpedValuesArray.length; i++) {
-      Integer clumpedValue = clumpedValuesArray[i][0];
-      if (!clumpedValues.contains(clumpedValue)) {
-        clumpedValues.add(clumpedValue);
-      }
-    }
-
-    // Create the new deClumpedValues
-    List<Integer> encountered = new ArrayList<Integer>();
-    for (int i = 0; i < array.length; i++) {
-      Integer current = array[i];
-
-      // Non-Clumped values
-      if (!clumpedValues.contains(current)) {
-        deClumpedValues.add(current);
-      }
-      // Clumped Values
-      else {
-        // Ignore non-AdjacentIdenticals
-        if (!hasAdjacentIdenticals(array, i)) {
-          deClumpedValues.add(current);
-        }
-        // Ignore clumpedValues already encountered
-        else if (!encountered.contains(current)) {
-          encountered.add(current);
-
-          // Set clumpedValues as the sum of their whole e.g.(5, 5, 5) = 15
-          for (int ii = 0; ii < clumpedValuesArray.length; ii++) {
-            Integer currentClump = clumpedValuesArray[ii][0];
-            if (currentClump == current) {
-              deClumpedValues.add(current * clumpedValuesArray[ii][1]);
-              break;
-            }
-          }
-        }
-      }
-    }
-
-    Integer[] deClumpedValuesArray = deClumpedValues.toArray(new Integer[0]);
-    return canSumToValue(
-      deClumpedValuesArray,
-      deClumpedValuesArray.length,
-      valueToSum
-    );
+    Integer[] deClumpedValues = getDeClumpedValues(array);
+    return canSumToValue(deClumpedValues, deClumpedValues.length, valueToSum);
   }
 
   /**
@@ -122,12 +74,12 @@ public class Recursion {
 
   /**
    * Finds identical adjacent values in an array and returns
-   * them as a List<Integer>
+   * them as a HashMap
    *
    * @param array - Integer[] of values to test
-   * @return List<Integer> identical adjacent values
+   * @return HashMap<Integer, Integer> identical adjacent values
    */
-  public static Integer[][] getClumpedValues(Integer[] array) {
+  public static HashMap<Integer, Integer> getClumpedValues(Integer[] array) {
     HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
     for (int i = 0; i < array.length; i++) {
       if (hasAdjacentIdenticals(array, i)) {
@@ -138,15 +90,43 @@ public class Recursion {
         map.put(array[i], clumpCount);
       }
     }
+    return map;
+  }
 
-    Integer[][] clumpedValues = new Integer[map.values().size()][2];
-    Integer count = 0;
-    for (Integer key : map.keySet()) {
-      clumpedValues[count][0] = key;
-      clumpedValues[count][1] = map.get(key);
-      count++;
+  /**
+   * Finds identical adjacent values in an array and returns and 
+   * combines them into the sum of their wholes.
+   *
+   * @param array - Integer[] of values to deClump
+   * @return Integer[] of values without clumps
+   */
+  public static Integer[] getDeClumpedValues(Integer[] array) {
+    HashMap<Integer, Integer> clumpedValues = getClumpedValues(array);
+    List<Integer> encountered = new ArrayList<Integer>();
+    List<Integer> deClumpedValues = new ArrayList<Integer>();
+
+    // Create the new deClumpedValues
+    for (int i = 0; i < array.length; i++) {
+      Integer current = array[i];
+
+      // Non-Clumped values
+      if (!clumpedValues.keySet().contains(current)) {
+        deClumpedValues.add(current);
+      }
+      // Clumped Values
+      else {
+        // Ignore non-AdjacentIdenticals
+        if (!hasAdjacentIdenticals(array, i)) {
+          deClumpedValues.add(current);
+        }
+        // Ignore clumpedValues already encountered
+        else if (!encountered.contains(current)) {
+          encountered.add(current);
+          deClumpedValues.add(current * clumpedValues.get(current));
+        }
+      }
     }
-    return clumpedValues;
+    return deClumpedValues.toArray(new Integer[0]);
   }
 
   /**

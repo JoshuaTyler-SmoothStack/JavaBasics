@@ -2,6 +2,9 @@ package coms.ss.javabasics.week1.assignment1;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.HashMap;
+
+import coms.ss.javabasics.KitUtils;
 import coms.ss.javabasics.week1.assingment5.Recursion;
 import org.junit.jupiter.api.Test;
 
@@ -93,15 +96,71 @@ public class RecursionTest {
     for (int i = 0; i < testCases.length; i++) {
       StringBuilder sb = new StringBuilder();
       try {
-        Integer[][] actualArray = Recursion.getClumpedValues(testCases[i]);
-        for (int arrayIndex = 0; arrayIndex < actualArray.length; arrayIndex++) {
-          sb.append(actualArray[arrayIndex][0] + ":" + actualArray[arrayIndex][1]);
-          if (arrayIndex + 1 < actualArray.length) {
-            sb.append(", ");
-          }
+        HashMap<Integer, Integer> actualMap = Recursion.getClumpedValues(testCases[i]);
+        for (Integer key : actualMap.keySet()) {
+          sb.append(key + ":" + actualMap.get(key) + ", ");
+        }
+        if(sb.length() > 2) {
+          sb.setLength(sb.length()-2);
         }
         String actual = sb.toString();
         String expected = testResults[i];
+        String message = expected + " | " + actual;
+        if (actual.equals(expected)) {
+          System.out.println(i + ": " + message);
+        } else {
+          isPassing = false;
+          System.err.println(i + ": " + message);
+        }
+      } catch (Exception e) {
+        isPassing = false;
+        System.err.println(i + ": " + e);
+      }
+    }
+
+    // Assessment
+    if (isPassing) {
+      System.out.println("Passed");
+    } else {
+      System.err.println("Failed");
+      fail();
+    }
+  }
+
+  // [TEST] getDeClumpedValues()
+  @Test
+  void getDeClumpedValues() {
+    System.out.println("\n[TEST] Recursion.class - getDeClumpedValues()");
+    System.out.println("==================================");
+    System.out.println("#Test | Expected | Actual");
+
+    // Setup
+    boolean isPassing = true;
+    Integer[][] testCases = {
+      { 2, 2, 2, 4, 8, 8, 9 },
+      { 1, 2, 4, 8, 1 },
+      { 10, 5, 5, 3 },
+      { 42, 7, 9001, 12 },
+      { 7, 7, 7, 7, 7, 7, 7 },
+      { 2, 3, 3, 4, 5, 6, 7, 9, 9 },
+      { 2, 3, 5, 7, 7 },
+    };
+
+    Integer[][] testResults = {
+      { 6, 4, 16, 9 },
+      { 1, 2, 4, 8, 1 },
+      { 10, 10, 3 },
+      { 42, 7, 9001, 12 },
+      { 49 },
+      { 2, 6, 4, 5, 6, 7, 18 },
+      { 2, 3, 5, 14 },
+    };
+
+    // Test
+    for (int i = 0; i < testCases.length; i++) {
+      try {
+        String actual = KitUtils.arrayToString(Recursion.getDeClumpedValues(testCases[i]));
+        String expected = KitUtils.arrayToString(testResults[i]);
         String message = expected + " | " + actual;
         if (actual.equals(expected)) {
           System.out.println(i + ": " + message);
