@@ -12,6 +12,7 @@ public class RecursionTest {
     canSumToValue();
     getClumpedValues();
     groupSumClump();
+    hasAdjacentIdenticals();
   }
 
   // [TEST] canSumToValue()
@@ -171,4 +172,53 @@ public class RecursionTest {
       fail();
     }
   }
+
+    // [TEST] hasAdjacentIdenticals()
+    @Test
+    void hasAdjacentIdenticals() {
+      System.out.println("\n[TEST] Recursion.class - hasAdjacentIdenticals()");
+      System.out.println("==================================");
+      System.out.println("#Test | Expected | Actual");
+  
+      // Setup
+      boolean isPassing = true;
+      Integer[][] testCases = {
+        { 1, 2, 4, 8, 1 },
+        { 2, 2, 4, 8, 2 },
+        { 10, 5, 5, 5, 3 },
+        { 5, 5, 5, 12 },
+        { 3, 4, 1, 7 },
+        { 2, 3, 5, 7 },
+        { 2, 3, 3, 5, 7, 7 },
+      };
+  
+      Integer[] testParams = { 1, 1, 1, 1, 1, 1, 1 };
+      Boolean[] testResults = { false, true, true, true, false, false, true };
+  
+      // Test
+      for (int i = 0; i < testCases.length; i++) {
+        try {
+          Boolean actual = Recursion.hasAdjacentIdenticals(testCases[i], testParams[i]);
+          Boolean expected = testResults[i];
+          String message = expected + " | " + actual;
+          if (actual.equals(expected)) {
+            System.out.println(i + ": " + message);
+          } else {
+            isPassing = false;
+            System.err.println(i + ": " + message);
+          }
+        } catch (Exception e) {
+          isPassing = false;
+          System.err.println(i + ": " + e);
+        }
+      }
+  
+      // Assessment
+      if (isPassing) {
+        System.out.println("Passed");
+      } else {
+        System.err.println("Failed");
+        fail();
+      }
+    }
 }

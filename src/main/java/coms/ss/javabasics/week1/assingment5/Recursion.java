@@ -45,23 +45,17 @@ public class Recursion {
       if (!clumpedValues.contains(current)) {
         deClumpedValues.add(current);
       }
-
       // Clumped Values
       else {
-        Boolean isPrevIdentical = false;
-        if (i - 1 > -1) {
-          isPrevIdentical = current == array[i - 1];
-        }
-
-        Boolean isNextIdentical = false;
-        if (i + 1 < array.length) {
-          isNextIdentical = current == array[i + 1];
-        }
-
-        if(!isPrevIdentical && !isNextIdentical) {
+        // Ignore non-AdjacentIdenticals
+        if (!hasAdjacentIdenticals(array, i)) {
           deClumpedValues.add(current);
-        } else if (!encountered.contains(current)) {
+        }
+        // Ignore clumpedValues already encountered
+        else if (!encountered.contains(current)) {
           encountered.add(current);
+
+          // Set clumpedValues as the sum of their whole e.g.(5, 5, 5) = 15
           for (int ii = 0; ii < clumpedValuesArray.length; ii++) {
             Integer currentClump = clumpedValuesArray[ii][0];
             if (currentClump == current) {
@@ -74,7 +68,11 @@ public class Recursion {
     }
 
     Integer[] deClumpedValuesArray = deClumpedValues.toArray(new Integer[0]);
-    return canSumToValue(deClumpedValuesArray, deClumpedValuesArray.length, valueToSum);
+    return canSumToValue(
+      deClumpedValuesArray,
+      deClumpedValuesArray.length,
+      valueToSum
+    );
   }
 
   /**
@@ -132,14 +130,10 @@ public class Recursion {
   public static Integer[][] getClumpedValues(Integer[] array) {
     HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
     for (int i = 0; i < array.length; i++) {
-      if (i + 1 > array.length - 1) {
-        break;
-      }
-
-      if (array[i] == array[i + 1]) {
-        int clumpCount = 2;
+      if (hasAdjacentIdenticals(array, i)) {
+        int clumpCount = 1;
         if (map.get(array[i]) != null) {
-          clumpCount += map.get(array[i]) - 1;
+          clumpCount = map.get(array[i]) + 1;
         }
         map.put(array[i], clumpCount);
       }
@@ -153,5 +147,27 @@ public class Recursion {
       count++;
     }
     return clumpedValues;
+  }
+
+  /**
+   * Finds identical adjacent values in an array and returns
+   * true/false if identical adjacent values are present
+   *
+   * @param array - Integer[] of values to test
+   * @param index - Integer index of array to test for adjacent identicals
+   * @return bool - identical adjacent values present
+   */
+  public static Boolean hasAdjacentIdenticals(Integer[] array, Integer index) {
+    Integer current = array[index];
+    Boolean isPrevIdentical = false;
+    if (index - 1 > -1) {
+      isPrevIdentical = current == array[index - 1];
+    }
+
+    Boolean isNextIdentical = false;
+    if (index + 1 < array.length) {
+      isNextIdentical = current == array[index + 1];
+    }
+    return (isPrevIdentical || isNextIdentical);
   }
 }
