@@ -2,14 +2,14 @@ package coms.ss.javabasics.week1.day2;
 
 /**
  * Takes in input from the command line, summing all valid numbers
- * 
+ *
  * @author Joshua Tyler
  */
 public class PrintArgs {
 
   /**
    * Sums valid number type args, notifies user of invalid args
-   * 
+   *
    * @param args - number types
    */
   public static void main(String[] args) {
@@ -38,7 +38,9 @@ public class PrintArgs {
     if (minOneValidArgs) {
       System.out.println("Args sum: " + Math.round(summedArgs));
     } else {
-      System.out.println("Unable to calculate a sum, no valid numbers present in args.");
+      System.out.println(
+        "Unable to calculate a sum, no valid numbers present in args."
+      );
     }
   }
 }

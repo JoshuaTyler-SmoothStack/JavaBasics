@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * - onExecute: holds the core function
  * - statusCheckInterval: how frequent the thread checks isRunning
  * - threadName: to help with tracking the thread through its lifecycle
- * 
+ *
  * @author Joshua Tyler
  */
 public class ControlledThread implements Runnable {
@@ -21,7 +21,12 @@ public class ControlledThread implements Runnable {
   private String threadName;
   private Thread worker;
 
-  public ControlledThread(Runnable _onExecute, Runnable _onInterrupt, String _threadName, int _statusCheckInterval) {
+  public ControlledThread(
+    Runnable _onExecute,
+    Runnable _onInterrupt,
+    String _threadName,
+    int _statusCheckInterval
+  ) {
     onInterrupt = _onInterrupt;
     onExecute = _onExecute;
     statusCheckInterval = _statusCheckInterval;
@@ -43,18 +48,21 @@ public class ControlledThread implements Runnable {
   }
 
   public void run() {
-    worker = new Thread(() -> {
-      isRunning.set(true);
-      while (isRunning.get()) {
-        try {
-          Thread.sleep(statusCheckInterval);
-        } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
+    worker =
+      new Thread(
+        () -> {
+          isRunning.set(true);
+          while (isRunning.get()) {
+            try {
+              Thread.sleep(statusCheckInterval);
+            } catch (InterruptedException e) {
+              Thread.currentThread().interrupt();
+            }
+            onExecute.run();
+          }
+          isRunning.set(false);
         }
-        onExecute.run();
-      }
-      isRunning.set(false);
-    });
+      );
     worker.start();
   }
 }

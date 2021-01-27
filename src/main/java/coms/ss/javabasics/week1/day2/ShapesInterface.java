@@ -1,22 +1,23 @@
 package coms.ss.javabasics.week1.day2;
 
-
 /**
  * An interface for Shape Geometry
- * 
+ *
  * @author Joshua Tyler
  */
 public interface ShapesInterface {
   public Double calculateArea();
+
   public void display();
 }
 
 class Circle implements ShapesInterface {
+
   public Double radius = 20d;
 
   @Override
   public Double calculateArea() {
-    return Math.PI*Math.pow(radius, 2);
+    return Math.PI * Math.pow(radius, 2);
   }
 
   @Override
@@ -26,6 +27,7 @@ class Circle implements ShapesInterface {
 }
 
 class Rectangle implements ShapesInterface {
+
   public Double length = 20d;
   public Double width = 20d;
 
@@ -41,12 +43,13 @@ class Rectangle implements ShapesInterface {
 }
 
 class Triangle implements ShapesInterface {
+
   public Double base = 20d;
   public Double height = 20d;
 
   @Override
   public Double calculateArea() {
-    return (base*height)/2;
+    return (base * height) / 2;
   }
 
   @Override

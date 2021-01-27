@@ -1,10 +1,10 @@
 package coms.ss.javabasics.week1.day1;
 
-import java.awt.event.ActionListener;
-import java.util.Random;
-import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,17 +15,18 @@ import javax.swing.JTextField;
 /**
  * A guessing game which assigns a random int 1-100 and gives the user 5
  * attempts to guess correctly.
- * 
+ *
  * @author Joshua Tyler
  */
 public class GuessNumber {
+
   public static Integer randomNum;
   public static Integer guessesRemaining = 5;
   public static GUI inputGUI;
 
   /**
    * Sets the random value and instantiates the GUI
-   * 
+   *
    * @param args - unused
    */
   public static void main(String[] args) {
@@ -39,12 +40,11 @@ public class GuessNumber {
    * the range of 1-100. Determines if the input is correct, close, or far off
    * enough for a hint. If the user has no guesses remaing, reports correct
    * answer.
-   * 
+   *
    * @param userInput - string parsed as an int to compare against randomly
    *                  generated value
    */
   public static String compareGuessToRandom(String userInput) {
-
     // Try ParseInt - notifying user if invalid input
     Integer inputInt = null;
     try {
@@ -68,22 +68,18 @@ public class GuessNumber {
     if (offset == 0) {
       return "Winner! - " + randomNum;
     }
-
     // Check if the user has guesses remaining
     else if (guessesRemaining > 0) {
-
       // User guessed within 10 digits
       if (Math.abs(offset) < 11) {
         return "You are very close! - " + randomNum;
       }
-
       // User did not guess within 10 digits
       else {
         String hint = (offset > 0) ? "lower." : "higher.";
         return "Not quite, guess " + hint;
       }
     }
-
     // User has run out of guess attempts
     else {
       return "Sorry. Number was: " + randomNum;
@@ -95,6 +91,7 @@ public class GuessNumber {
    * input from the user
    */
   public static class GUI implements ActionListener {
+
     final Integer frameHeight = 200;
     final Integer frameWidth = 300;
     final Integer textInputHeight = 30;
@@ -110,7 +107,6 @@ public class GuessNumber {
      * Constructs the GUI elements
      */
     public GUI() {
-
       // Label
       label = new JLabel("Guess A Number 1-100!");
 
@@ -118,7 +114,12 @@ public class GuessNumber {
       textInput = new JTextField(20);
       Integer textInputOffsetX = (int) ((frameWidth - textInputWidth) * 0.5);
       Integer textInputOffsetY = 0;
-      textInput.setBounds(textInputOffsetX, textInputOffsetY, textInputWidth, textInputHeight);
+      textInput.setBounds(
+        textInputOffsetX,
+        textInputOffsetY,
+        textInputWidth,
+        textInputHeight
+      );
 
       // Button
       button = new JButton("Submit");
@@ -126,8 +127,14 @@ public class GuessNumber {
 
       // Panel
       panel = new JPanel();
-      panel.setBorder(BorderFactory.createEmptyBorder((int) (frameHeight * 0.5), (int) (frameWidth * 0.5),
-          (int) (frameHeight * 0.5), (int) (frameWidth * 0.5)));
+      panel.setBorder(
+        BorderFactory.createEmptyBorder(
+          (int) (frameHeight * 0.5),
+          (int) (frameWidth * 0.5),
+          (int) (frameHeight * 0.5),
+          (int) (frameWidth * 0.5)
+        )
+      );
       panel.setLayout(new GridLayout(0, 1));
       panel.add(label);
       panel.add(textInput);
@@ -145,14 +152,17 @@ public class GuessNumber {
     /**
      * Listens to Action from the GUI, calls the textInput to be processed, and
      * update the GUI layout to inform the user of the game's state
-     * 
+     *
      * @param e - the ActionEvent passed fropm submit button's ActionListener
      */
     @Override
     public void actionPerformed(ActionEvent e) {
       String newLabel = compareGuessToRandom(textInput.getText());
-      if (newLabel.startsWith("Winner") || newLabel.startsWith("Sorry") || 
-          newLabel.startsWith("You are very close")) {
+      if (
+        newLabel.startsWith("Winner") ||
+        newLabel.startsWith("Sorry") ||
+        newLabel.startsWith("You are very close")
+      ) {
         panel.remove(textInput);
         panel.remove(button);
       }

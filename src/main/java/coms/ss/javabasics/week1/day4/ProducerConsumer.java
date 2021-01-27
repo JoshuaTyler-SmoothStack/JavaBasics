@@ -1,16 +1,15 @@
 package coms.ss.javabasics.week1.day4;
 
+import coms.ss.javabasics.ControlledThread;
+import coms.ss.javabasics.KitUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import coms.ss.javabasics.ControlledThread;
-import coms.ss.javabasics.KitUtils;
-
 /**
  * Creates a producer thread and consumer thread. The producer creates values as
  * needed, the consumer thread pulls values.
- * 
+ *
  * @author Joshua Tyler
  */
 public class ProducerConsumer {
@@ -20,7 +19,7 @@ public class ProducerConsumer {
   /**
    * Driver for creating & starting the two threads; then disabling them after 10
    * seconds has elapsed.
-   * 
+   *
    * @param args - (optional) time in milliseconds of each cycle (recommended range: 100 - 1000)
    */
   public static void main(String[] args) {
@@ -72,15 +71,28 @@ public class ProducerConsumer {
     };
 
     // Start the Threads
-    ControlledThread producer = new ControlledThread(produceExecute, produceInterrupt, "producer", cycleTime);
-    ControlledThread consumer = new ControlledThread(consumeExecute, consumeInterrupt, "consumer", cycleTime);
+    ControlledThread producer = new ControlledThread(
+      produceExecute,
+      produceInterrupt,
+      "producer",
+      cycleTime
+    );
+    ControlledThread consumer = new ControlledThread(
+      consumeExecute,
+      consumeInterrupt,
+      "consumer",
+      cycleTime
+    );
     producer.run();
     consumer.run();
 
     // Stop the Threads after 10 seconds has elapsed
-    KitUtils.setTimeout(() -> {
-      producer.interrupt();
-      consumer.interrupt();
-    }, 10000);
+    KitUtils.setTimeout(
+      () -> {
+        producer.interrupt();
+        consumer.interrupt();
+      },
+      10000
+    );
   }
 }

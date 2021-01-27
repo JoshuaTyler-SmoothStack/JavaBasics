@@ -1,7 +1,7 @@
 package coms.ss.javabasics.week1.day4;
 
-
 public class Line {
+
   // construct a line object
   public Line(double x0, double y0, double x1, double y1) {
     this.x0 = x0;
@@ -27,11 +27,11 @@ public class Line {
   // return whether a line is parallel to another
   public boolean parallelTo(Line l) {
     // if the difference between the slopes is very small, consider them parallel
-    if(Math.abs(getSlope() - l.getSlope()) < .0001) {
-      return true;    
+    if (Math.abs(getSlope() - l.getSlope()) < .0001) {
+      return true;
     } else {
       return false;
-    }  
+    }
   }
 
   // private member data
