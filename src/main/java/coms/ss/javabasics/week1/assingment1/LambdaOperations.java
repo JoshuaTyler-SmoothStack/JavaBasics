@@ -43,6 +43,8 @@ public class LambdaOperations {
           return isPrime().apply(value);
         case 3:
           return isPalindrome().apply(value);
+        default:
+          System.err.println("Invalid Case");
       }
     }
     return "Test Complete!";
