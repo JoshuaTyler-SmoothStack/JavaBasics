@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Determines if it is possible to sum items from an array
- * of ints to a target value. This is performed with the
+ * of ints to a target valueToSum. This is performed with the
  * additional constraint that any adjacent identical values
  * are either all used or none of them are used.
  *
@@ -19,26 +19,61 @@ public class Recursion {
    * and then applying the summing logic.
    *
    * @param array - Integer[] of values to pull from
-   * @param value - Integer value to test if sum is possible
+   * @param valueToSum - Integer valueToSum to test if sum is possible
    * @return bool sum is possible
    */
-  public static boolean groupSumClump(Integer[] array, Integer value) {
-    String[] clumpedValues = getClumpedValues(array);
-    List<Integer> deClumpedArray = new ArrayList<Integer>();
+  public static boolean groupSumClump(Integer[] array, Integer valueToSum) {
+    Integer[][] clumpedValuesArray = getClumpedValues(array);
+    List<Integer> clumpedValues = new ArrayList<Integer>();
+    List<Integer> deClumpedValues = new ArrayList<Integer>();
 
     // Iterarte through the array, restructuring clumpedValues as the
     // sum of their whole (as clumpedValues are inclusive or excluseive)
-    for(int i = 0; i < clumpedValuesArray.length; i++) {
-      clumpedValues.add(clumpedValuesArray[i][0]);
+    for (int i = 0; i < clumpedValuesArray.length; i++) {
+      Integer clumpedValue = clumpedValuesArray[i][0];
+      if (!clumpedValues.contains(clumpedValue)) {
+        clumpedValues.add(clumpedValue);
+      }
     }
 
-    for(int i = 0; i < array.length; i++) {
-      if(clumpedValues)
-      deClumpedValues.add(clumpedValuesArray[i][0]);
+    // Create the new deClumpedValues
+    List<Integer> encountered = new ArrayList<Integer>();
+    for (int i = 0; i < array.length; i++) {
+      Integer current = array[i];
+
+      // Non-Clumped values
+      if (!clumpedValues.contains(current)) {
+        deClumpedValues.add(current);
+      }
+      // Clumped Values
+      else {
+        Boolean isPrevIdentical = false;
+        if (i - 1 > -1) {
+          isPrevIdentical = current == array[i - 1];
+        }
+
+        Boolean isNextIdentical = false;
+        if (i + 1 < array.length - 1) {
+          isNextIdentical = current == array[i + 1];
+        }
+
+        if(!isPrevIdentical && !isNextIdentical) {
+          deClumpedValues.add(current);
+        } else if (!encountered.contains(current)) {
+          encountered.add(current);
+          for (int ii = 0; ii < clumpedValuesArray.length; ii++) {
+            Integer currentClump = clumpedValuesArray[ii][0];
+            if (currentClump == current) {
+              deClumpedValues.add(current * clumpedValuesArray[ii][1]);
+              break;
+            }
+          }
+        }
+      }
     }
 
-
-    return false;
+    Integer[] deClumpedValuesArray = deClumpedValues.toArray(new Integer[0]);
+    return canSumToValue(deClumpedValuesArray, deClumpedValuesArray.length, valueToSum);
   }
 
   /**
@@ -54,7 +89,7 @@ public class Recursion {
    *
    * @param array - Integer[] of values to pull from
    * @param instanceLength - Integer of the length of the array being utilized
-   * @param sumToValue - Integer value to test if equal to
+   * @param sumToValue - Integer valueToSum to test if equal to
    * @return bool sum is possible
    */
   public static boolean canSumToValue(
@@ -93,18 +128,17 @@ public class Recursion {
    * @param array - Integer[] of values to test
    * @return List<Integer> identical adjacent values
    */
-  public static String[] getClumpedValues(Integer[] array) {    
-    HashMap<String, Integer> map = new HashMap<String, Integer>();
+  public static Integer[][] getClumpedValues(Integer[] array) {
+    HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
     for (int i = 0; i < array.length; i++) {
       if (i + 1 > array.length - 1) {
         break;
       }
 
       if (array[i] == array[i + 1]) {
-        int startIndex = i;
-        int endIndex = i+1;
-        if(map.get(array[i]) != null) {
-          clumpCount += map.get(array[i])-1;
+        int clumpCount = 2;
+        if (map.get(array[i]) != null) {
+          clumpCount += map.get(array[i]) - 1;
         }
         map.put(array[i], clumpCount);
       }
@@ -112,7 +146,7 @@ public class Recursion {
 
     Integer[][] clumpedValues = new Integer[map.values().size()][2];
     Integer count = 0;
-    for(Integer key : map.keySet()) {
+    for (Integer key : map.keySet()) {
       clumpedValues[count][0] = key;
       clumpedValues[count][1] = map.get(key);
       count++;

@@ -2,7 +2,6 @@ package coms.ss.javabasics.week1.assignment1;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import coms.ss.javabasics.KitUtils;
 import coms.ss.javabasics.week1.assingment5.Recursion;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +11,7 @@ public class RecursionTest {
   public void runAllTest() {
     canSumToValue();
     getClumpedValues();
+    groupSumClump();
   }
 
   // [TEST] canSumToValue()
@@ -100,6 +100,55 @@ public class RecursionTest {
         }
         String actual = sb.toString();
         String expected = testResults[i];
+        String message = expected + " | " + actual;
+        if (actual.equals(expected)) {
+          System.out.println(i + ": " + message);
+        } else {
+          isPassing = false;
+          System.err.println(i + ": " + message);
+        }
+      } catch (Exception e) {
+        isPassing = false;
+        System.err.println(i + ": " + e);
+      }
+    }
+
+    // Assessment
+    if (isPassing) {
+      System.out.println("Passed");
+    } else {
+      System.err.println("Failed");
+      fail();
+    }
+  }
+
+  // [TEST] groupSumClump()
+  @Test
+  void groupSumClump() {
+    System.out.println("\n[TEST] Recursion.class - groupSumClump()");
+    System.out.println("==================================");
+    System.out.println("#Test | Expected | Actual");
+
+    // Setup
+    boolean isPassing = true;
+    Integer[][] testCases = {
+      { 1, 2, 4, 8, 1 },
+      { 2, 2, 4, 8, 2 },
+      { 10, 5, 5, 3 },
+      { 5, 5, 5, 12 },
+      { 3, 4, 1, 7 },
+      { 2, 3, 5, 7 },
+      { 2, 3, 5, 7, 7 },
+    };
+
+    Integer[] testParams = { 10, 10, 20, 15, 9, 15, 15 };
+    Boolean[] testResults = { true, true, false, false, false, true, false };
+
+    // Test
+    for (int i = 0; i < testCases.length; i++) {
+      try {
+        Boolean actual = Recursion.groupSumClump(testCases[i], testParams[i]);
+        Boolean expected = testResults[i];
         String message = expected + " | " + actual;
         if (actual.equals(expected)) {
           System.out.println(i + ": " + message);
