@@ -45,6 +45,7 @@ public class Recursion {
       if (!clumpedValues.contains(current)) {
         deClumpedValues.add(current);
       }
+
       // Clumped Values
       else {
         Boolean isPrevIdentical = false;
@@ -53,7 +54,7 @@ public class Recursion {
         }
 
         Boolean isNextIdentical = false;
-        if (i + 1 < array.length - 1) {
+        if (i + 1 < array.length) {
           isNextIdentical = current == array[i + 1];
         }
 

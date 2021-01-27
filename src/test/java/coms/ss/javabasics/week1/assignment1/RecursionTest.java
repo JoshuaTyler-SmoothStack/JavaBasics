@@ -82,9 +82,10 @@ public class RecursionTest {
       { 42, 7, 9001, 12 },
       { 7, 7, 7, 7, 7, 7, 7 },
       { 2, 3, 3, 4, 5, 6, 7, 9, 9 },
+      { 2, 3, 5, 7, 7 },
     };
 
-    String[] testResults = { "2:3, 8:2", "", "5:2", "", "7:7", "3:2, 9:2" };
+    String[] testResults = { "2:3, 8:2", "", "5:2", "", "7:7", "3:2, 9:2", "7:2" };
 
     // Test
 
@@ -134,7 +135,7 @@ public class RecursionTest {
     Integer[][] testCases = {
       { 1, 2, 4, 8, 1 },
       { 2, 2, 4, 8, 2 },
-      { 10, 5, 5, 3 },
+      { 10, 5, 5, 5, 3 },
       { 5, 5, 5, 12 },
       { 3, 4, 1, 7 },
       { 2, 3, 5, 7 },
@@ -142,7 +143,7 @@ public class RecursionTest {
     };
 
     Integer[] testParams = { 10, 10, 20, 15, 9, 15, 15 };
-    Boolean[] testResults = { true, true, false, false, false, true, false };
+    Boolean[] testResults = { true, true, false, true, false, true, false };
 
     // Test
     for (int i = 0; i < testCases.length; i++) {
