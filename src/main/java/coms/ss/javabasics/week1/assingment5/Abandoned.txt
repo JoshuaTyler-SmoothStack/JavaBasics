@@ -1,0 +1,87 @@
+  public static boolean canSumToValue(Integer[] array, Integer value) {
+    // Create a HashMap of the possible shallow sums
+    // Check if any of the array indexes are the value
+    // Also checking the totalSum to see if the value is a possibility
+    int totalSum = 0;
+    HashMap<String, Integer> map = new HashMap<String, Integer>();
+    for(int i = 0; i < array.length; i++) {
+      Integer value1 = array[i];
+      
+      totalSum += value1;
+      if(value1 == value) {
+        return true;
+      }
+
+      // Sum with other indexes (not self) and add to HashMap
+      for(int ii = 0; ii < array.length; ii++) {
+        if(ii != i) {
+          Integer value2 = array[ii];
+          map.put((value1 + "," + value2), value1+value2);
+        }
+      }
+    }
+    if(totalSum < value) {
+      return false;
+    }
+
+    // Check if the shallow sums contains the value
+    if(map.values().contains(value)) {
+      return true;
+    }
+
+    // Iterate through the arrays, passing the HashMap 
+    for(int i : array) {
+      List<Integer> rowSums = calculateHashMapRowSums(map, i);
+      if(rowSums.contains(value)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+public static HashMap<String, Integer> calculateHashMap(Integer[] array) {
+  HashMap<String, Integer> map = new HashMap<String, Integer>();
+  for(int i = 0; i < array.length; i++) {
+    Integer value1 = array[i];
+    Integer duplicateCount = 0;
+
+    // Sum with other indexes (not self)
+    for(int ii = 0; ii < array.length; ii++) {
+      if(ii != i) {
+        Integer value2 = array[ii];
+
+        // Mark duplicates with identifier "d"
+        if(value1 == value2) {
+          map.put(value1+"d", value1);
+          map.put(value1+","+value1+"d"+duplicateCount, value1*(2+duplicateCount));
+          duplicateCount++;
+        } else {
+          map.put(Math.max(value1, value2) + "," + Math.min(value1, value2), value1+value2);
+        }
+      }
+    }
+  }
+  return map;
+}
+
+public static List<Integer> calculateHashMapRowSums(HashMap<String, Integer> map, Integer row) {
+  List<Integer> rowSums = new ArrayList<Integer>();
+  System.out.println(map);
+  // [i]th row values are ignored as to not sum with itself
+  // the marker "d" identifies duplicate rows so they are not overlooked
+  for(String key : map.keySet()) {
+    if(!key.contains(row+"") || key.contains(row+"d")) {
+      int sum = row + map.get(key);
+      if(!rowSums.contains(sum)) {
+        rowSums.add(sum);
+      }
+    } 
+    // else if(key.contains(row+"d")) {
+    //   int sum = map.get(key);
+    //   if(!rowSums.contains(sum)) {
+    //     rowSums.add(sum);
+    //   }
+    // }
+  }
+  return rowSums;
+}
