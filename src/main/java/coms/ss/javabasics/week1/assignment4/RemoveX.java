@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class RemoveX {
     
-  public static List<String> rightMostDigits(List<String> input) {
+  public static List<String> removeX(List<String> input) {
     return input.stream().map((str) -> str.replace("x", "")).collect(Collectors.toList());
   }
 }
