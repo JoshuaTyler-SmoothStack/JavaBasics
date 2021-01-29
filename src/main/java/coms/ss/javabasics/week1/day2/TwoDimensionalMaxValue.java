@@ -17,8 +17,8 @@ public class TwoDimensionalMaxValue {
    * @param args - unused
    */
   public static void main(String[] args) {
-    int[][] random2DArray = create2DArray();
-    int[] results = find2DArrayMaxValue(random2DArray);
+    Integer[][] random2DArray = createRandom2DArray();
+    Integer[] results = find2DArrayMaxValueAndPosition(random2DArray);
     System.out.println(
       "Max Value: " +
       results[0] +
@@ -35,15 +35,16 @@ public class TwoDimensionalMaxValue {
    *
    * @return 2D Array
    */
-  public static int[][] create2DArray() {
+  public static Integer[][] createRandom2DArray() {
     Random rand = new Random();
 
     // Determine 2 random lengths for the array
-    int lengthX = rand.nextInt(10) + 1;
-    int lengthY = rand.nextInt(10) + 1;
+    // (length between 3 & 10)
+    int lengthX = rand.nextInt(7) + 3;
+    int lengthY = rand.nextInt(7) + 3;
 
     // Create the 2D Array, assigning random values 1-100
-    int[][] newArray = new int[lengthX][lengthY];
+  Integer[][] newArray = new Integer[lengthX][lengthY];
     for (int i = 0; i < lengthX; i++) {
       for (int ii = 0; ii < lengthY; ii++) {
         newArray[i][ii] = rand.nextInt(100) + 1;
@@ -59,7 +60,7 @@ public class TwoDimensionalMaxValue {
    * @param int[][] - 2D Array
    * @return int[] - int[0] = value && int[1] = index1 && int[2] = index2
    */
-  public static int[] find2DArrayMaxValue(int[][] input) {
+  public static Integer[] find2DArrayMaxValueAndPosition(Integer[][] input) {
     int maxValue = 0;
     int maxValueX = 0;
     int maxValueY = 0;
@@ -74,7 +75,6 @@ public class TwoDimensionalMaxValue {
         }
       }
     }
-    int[] output = { maxValue, maxValueX, maxValueY };
-    return output;
+    return new Integer[] { maxValue, maxValueX, maxValueY };
   }
 }

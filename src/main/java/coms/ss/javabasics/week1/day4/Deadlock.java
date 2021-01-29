@@ -38,44 +38,8 @@ public class Deadlock {
     KitUtils.setTimeout(
       () -> {
         if (thread1.isRunning() && thread2.isRunning()) {
-          System.out.println("Both threads detected running after 1 second.");
-        }
-      },
-      1000
-    );
-
-    KitUtils.setTimeout(
-      () -> {
-        if (thread1.isRunning() && thread2.isRunning()) {
-          System.out.println("Both threads detected running after 2 seconds.");
-        }
-      },
-      2000
-    );
-
-    KitUtils.setTimeout(
-      () -> {
-        if (thread1.isRunning() && thread2.isRunning()) {
-          System.out.println("Both threads detected running after 3 seconds.");
-        }
-      },
-      3000
-    );
-
-    KitUtils.setTimeout(
-      () -> {
-        if (thread1.isRunning() && thread2.isRunning()) {
-          System.out.println("Both threads detected running after 4 seconds.");
-        }
-      },
-      4000
-    );
-
-    KitUtils.setTimeout(
-      () -> {
-        if (thread1.isRunning() && thread2.isRunning()) {
           System.out.println(
-            "Both threads detected running after 5 seconds. \nDisabling threads . . ."
+            "Both threads detected locked after 5 seconds.\nDisabling threads . . ."
           );
           thread1.interrupt();
           thread2.interrupt();
@@ -84,6 +48,46 @@ public class Deadlock {
       },
       5000
     );
+
+    // End Function
+    // =============================================================
+    //region UI Readouts (non-functional)
+    KitUtils.setTimeout(
+      () -> {
+        if (thread1.isRunning() && thread2.isRunning()) {
+          System.out.println("Both threads detected locked after 1 second.");
+        }
+      },
+      1000
+    );
+
+    KitUtils.setTimeout(
+      () -> {
+        if (thread1.isRunning() && thread2.isRunning()) {
+          System.out.println("Both threads detected locked after 2 seconds.");
+        }
+      },
+      2000
+    );
+
+    KitUtils.setTimeout(
+      () -> {
+        if (thread1.isRunning() && thread2.isRunning()) {
+          System.out.println("Both threads detected locked after 3 seconds.");
+        }
+      },
+      3000
+    );
+
+    KitUtils.setTimeout(
+      () -> {
+        if (thread1.isRunning() && thread2.isRunning()) {
+          System.out.println("Both threads detected locked after 4 seconds.");
+        }
+      },
+      4000
+    );
+    //endregion
   }
 
   /**

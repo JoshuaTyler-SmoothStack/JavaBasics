@@ -26,6 +26,11 @@ public class Line {
 
   // return whether a line is parallel to another
   public boolean parallelTo(Line l) {
+    // if either line has no direction, throw Arithmetic Error
+    if(l.getDistance() == 0 || getDistance() == 0) {
+      throw new ArithmeticException();
+    }
+
     // if the difference between the slopes is very small, consider them parallel
     if (Math.abs(getSlope() - l.getSlope()) < .0001) {
       return true;

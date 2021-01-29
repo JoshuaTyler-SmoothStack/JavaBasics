@@ -1,7 +1,10 @@
 package coms.ss.javabasics.week1.day4;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import coms.ss.javabasics.KitUtils;
+import coms.ss.javabasics.TestUtils;
 import org.junit.jupiter.api.Test;
 
 public class LineTest {
@@ -13,15 +16,12 @@ public class LineTest {
     parallelTo();
   }
 
-  // [TEST] getSlope()
   @Test
   void getSlope() {
-    System.out.println("\n[TEST] Line.class - getSlope()");
-    System.out.println("==================================");
-    System.out.println("#Test | Expected | Actual");
+    Integer testCount = 1;
+    String testName = "week1.day4 - Line.class | getSlope()";
 
-    // Setup
-    boolean isPassing = true;
+    // Test Cases
     double[][] testCases = {
       { 1, 1, 2, 2 },
       { 1, 1, 2, 3 },
@@ -29,6 +29,8 @@ public class LineTest {
       { 8, 8, 0, 0 },
       { 8, 8, 8, 8 },
     };
+
+    // Test Results
     double[] testResults = {
       1,
       2,
@@ -37,49 +39,42 @@ public class LineTest {
       // throwException
     };
 
-    for (int i = 0; i < testCases.length; i++) {
-      Line l = new Line(
-        testCases[i][0],
-        testCases[i][1],
-        testCases[i][2],
-        testCases[i][3]
-      );
-      try {
-        double actual = l.getSlope();
-        double expected = testResults[i];
-        String message = expected + " | " + actual;
-        if (Math.abs(actual - expected) < 0.0001) {
-          System.out.println(i + ": " + message);
-        } else {
-          isPassing = false;
-          System.err.println(i + ": " + message);
+    // Test
+    Runnable test = () -> {
+      for (int i = 0; i < testCases.length; i++) {
+        Line l = new Line(
+          testCases[i][0],
+          testCases[i][1],
+          testCases[i][2],
+          testCases[i][3]
+        );
+        try {
+          double actual = l.getSlope();
+          double expected = testResults[i];
+          System.out.println(
+            i +
+            ": " +
+            KitUtils.toString(expected) +
+            " | " +
+            KitUtils.toString(actual)
+          );
+          assertNotNull(actual);
+          assertEquals(expected, actual, 0.0001);
+        } catch (ArithmeticException e) {
+          System.out.println(
+            i + ": " + "Handled arithmetic exception (divide by 0) successfully"
+          );
         }
-      } catch (ArithmeticException e) {
-        System.out.println(i + ": " + "Handled Exception");
-      } catch (Exception e) {
-        isPassing = false;
-        System.err.println(i + ": " + e);
       }
-    }
-
-    // Assessment
-    if (isPassing) {
-      System.out.println("Passed");
-    } else {
-      System.err.println("Failed");
-      fail();
-    }
+    };
+    TestUtils.runTest(test, testName, testCount);
   }
 
-  // [TEST] getDistance()
   @Test
   void getDistance() {
-    System.out.println("\n[TEST] Line.class - getDistance()");
-    System.out.println("==================================");
-    System.out.println("#Test | Expected | Actual");
-
-    // Setup
-    boolean isPassing = true;
+    Integer testCount = 1;
+    String testName = "week1.day4 - Line.class | getDistance()";
+    // Test Cases
     double[][] testCases = {
       { 1, 1, 2, 2 },
       { 1, 1, 2, 3 },
@@ -87,52 +82,43 @@ public class LineTest {
       { 8, 8, 0, 0 },
       { 8, 8, 8, 8 },
     };
+
+    // Test Results
     double[] testResults = { 1.4142, 2.2360, 74.3303, 11.3137, 0 };
 
     // Test
-    for (int i = 0; i < testCases.length; i++) {
-      Line l = new Line(
-        testCases[i][0],
-        testCases[i][1],
-        testCases[i][2],
-        testCases[i][3]
-      );
+    Runnable test = () -> {
+      for (int i = 0; i < testCases.length; i++) {
+        Line l = new Line(
+          testCases[i][0],
+          testCases[i][1],
+          testCases[i][2],
+          testCases[i][3]
+        );
 
-      try {
         double actual = l.getDistance();
         double expected = testResults[i];
-        String message = expected + " | " + actual;
-        if (Math.abs(actual - expected) < 0.0001) {
-          System.out.println(i + ": " + message);
-        } else {
-          isPassing = false;
-          System.err.println(i + ": " + message);
-        }
-      } catch (Exception e) {
-        isPassing = false;
-        System.err.println(i + ": " + e);
+        System.out.println(
+          i +
+          ": " +
+          KitUtils.toString(expected) +
+          " | " +
+          KitUtils.toString(actual)
+        );
+        assertNotNull(actual);
+        assertEquals(expected, actual, 0.0001);
       }
-    }
-
-    // Assessment
-    if (isPassing) {
-      System.out.println("Passed");
-    } else {
-      System.err.println("Failed");
-      fail();
-    }
+    };
+    TestUtils.runTest(test, testName, testCount);
   }
 
-  //[TEST] parallelTo()
   @Test
   void parallelTo() {
-    System.out.println("\n[TEST] Line.class - parellelTo()");
-    System.out.println("==================================");
-    System.out.println("#Test | Expected | Actual");
+    Integer testCount = 1;
+    String testName = "week1.day4 - Line.class | parallelTo()";
 
-    // Setup
-    boolean isPassing = true;
-    Line l1 = new Line(1, 1, 2, 2);
+    // Test Cases
+    Line testLine = new Line(1, 1, 2, 2);
     double[][] testCases = {
       { 1, 1, 2, 2 },
       { 1, 1, 2, 3 },
@@ -141,38 +127,34 @@ public class LineTest {
       { 8, 8, 8, 8 },
       { -1, -1, 2, 2 },
     };
+
+    // Test Results
     boolean[] testResults = { true, false, false, true, false, true };
 
     // Test
-    for (int i = 0; i < testCases.length; i++) {
-      Line l2 = new Line(
-        testCases[i][0],
-        testCases[i][1],
-        testCases[i][2],
-        testCases[i][3]
-      );
-      try {
-        boolean actual = l1.parallelTo(l2);
-        boolean expected = testResults[i];
-        String message = expected + " | " + actual;
-        if (actual == expected) {
-          System.out.println(i + ": " + message);
-        } else {
-          isPassing = false;
-          System.err.println(i + ": " + message);
+    Runnable test = () -> {
+      int iterations = testCases.length;
+      for (int i = 0; i < iterations; i++) {
+        Line l = new Line(
+          testCases[i][0],
+          testCases[i][1],
+          testCases[i][2],
+          testCases[i][3]
+        );
+        try {
+          boolean actual = l.parallelTo(testLine);
+          boolean expected = testResults[i];
+          System.out.println(i + ": " + expected + " | " + actual);
+          assertNotNull(actual);
+          assertEquals(expected, actual);
+        } catch (ArithmeticException e) {
+          // prettier-ignore
+          System.out.println(i +": " +
+            "Handled ArithmeticException (non-directional line) successfully"
+          );
         }
-      } catch (Exception e) {
-        isPassing = false;
-        System.err.println(i + ": " + e);
       }
-    }
-
-    // Assessment
-    if (isPassing) {
-      System.out.println("Passed");
-    } else {
-      System.err.println("Failed");
-      fail();
-    }
+    };
+    TestUtils.runTest(test, testName, testCount);
   }
 }

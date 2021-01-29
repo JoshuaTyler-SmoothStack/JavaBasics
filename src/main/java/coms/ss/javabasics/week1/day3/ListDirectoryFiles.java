@@ -7,15 +7,15 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 /**
- * Takes in input from the command line, summing all valid numbers
+   * Uses the FileReader to parse and println() the filename's of all files within
+   * the specifiec directory (or src if no args)
  *
  * @author Joshua Tyler
  */
 public class ListDirectoryFiles {
 
   /**
-   * Uses the FileReader to parse and println() the filename's of all files within
-   * the specifiec directory (or src if no args)
+   * Main Driver
    *
    * @param args - string absolute file location
    */

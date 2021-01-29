@@ -1,30 +1,27 @@
 package coms.ss.javabasics.week1.day5;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import coms.ss.javabasics.KitUtils;
+import coms.ss.javabasics.TestUtils;
 import java.util.Arrays;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class ThreeLetterAWordTest {
 
   @Test
-  public void runAllTest() {
+  public void runAllTests() {
     getThreeLetterWordsStartingWithLowercaseA();
   }
 
-  // [TEST] getThreeLetterWordsStartingWithLowercaseA()
   @Test
   void getThreeLetterWordsStartingWithLowercaseA() {
-    System.out.println(
-      "\n[TEST] Lambdas.class - getThreeLetterWordsStartingWithLowercaseA()"
-    );
-    System.out.println("==================================");
-    System.out.println("#Test | Expected | Actual");
+    Integer testCount = 1;
+String testName =
+      "week1.day5 - ThreeLetterAWordTest.class | getThreeLetterWordsStartingWithLowercaseA()";
 
-    // Setup
-    boolean isPassing = true;
+    // Test Cases
     String[][] testCases = {
       { "are", "aren't", "arm", "air" },
       { "aurora", "Arby's", "Air", "ate" }, // Uppercase
@@ -32,6 +29,8 @@ public class ThreeLetterAWordTest {
       { "airsoft", "avocado", "Ape", "ape" },
       { "art", "cart", "est", "pig" },
     };
+
+    // Test Results
     String[][] testResults = {
       { "are", "arm", "air" },
       { "ate" },
@@ -41,34 +40,19 @@ public class ThreeLetterAWordTest {
     };
 
     // Test
-    for (int i = 0; i < testCases.length; i++) {
-      try {
-        List<String> words = Arrays.asList(testCases[i]);
-        String actual = KitUtils.arrayToString(
-          ThreeLetterAWord
-            .getThreeLetterWordsStartingWithLowercaseA(words)
-            .toArray(new String[0])
+    Runnable test = () -> {
+for (int i = 0; i < testCases.length; i++) {
+        String actual = KitUtils.toString(
+          ThreeLetterAWord.getThreeLetterWordsStartingWithLowercaseA(
+            Arrays.asList(testCases[i])
+          )
         );
-        String expected = KitUtils.arrayToString(testResults[i]);
-        String message = expected + " | " + actual;
-        if (actual.equals(expected)) {
-          System.out.println(i + ": " + message);
-        } else {
-          isPassing = false;
-          System.err.println(i + ": " + message);
-        }
-      } catch (Exception e) {
-        isPassing = false;
-        System.err.println(i + ": " + e);
+        String expected = KitUtils.toString(testResults[i]);
+        System.out.println(i + ": " + expected + " | " + actual);
+        assertNotNull(actual);
+        assertEquals(expected, actual);
       }
-    }
-
-    // Assessment
-    if (isPassing) {
-      System.out.println("Passed");
-    } else {
-      System.err.println("Failed");
-      fail();
-    }
+    };
+    TestUtils.runTest(test, testName, testCount);
   }
 }

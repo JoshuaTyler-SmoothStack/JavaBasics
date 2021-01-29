@@ -1,9 +1,11 @@
 package coms.ss.javabasics.week1.day5;
 
-import static org.junit.jupiter.api.Assertions.fail;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import coms.ss.javabasics.KitUtils;
+import coms.ss.javabasics.TestUtils;
+import org.junit.jupiter.api.Test;
 
 public class LambdasTest {
 
@@ -14,15 +16,12 @@ public class LambdasTest {
     sortLengthLargest();
   }
 
-  // [TEST] sortAlphabetically()
   @Test
   void sortAlphabetically() {
-    System.out.println("\n[TEST] Lambdas.class - sortAlphabetically()");
-    System.out.println("==================================");
-    System.out.println("#Test | Expected | Actual");
+    Integer testCount = 1;
+String testName = "week1.day5 - Lambdas.class | sortAlphabetically()";
 
-    // Setup
-    boolean isPassing = true;
+    // Test Cases
     String[][] testCases = {
       { "a", "yo-yo", "what", "seventy" },
       { "lorem", "ipsum", "two", "3" },
@@ -30,6 +29,8 @@ public class LambdasTest {
       { "test", "case", "running", "overload" },
       { "system", "jambon", "guinea", "pig" },
     };
+
+    // Test Results
     String[][] testResults = {
       { "a", "seventy", "what", "yo-yo" },
       { "3", "ipsum", "lorem", "two" },
@@ -39,43 +40,26 @@ public class LambdasTest {
     };
 
     // Test
-    for (int i = 0; i < testCases.length; i++) {
-      try {
-        String actual = KitUtils.arrayToString(
+    Runnable test = () -> {
+for (int i = 0; i < testCases.length; i++) {
+        String expected = KitUtils.toString(testResults[i]);
+        String actual = KitUtils.toString(
           Lambdas.sortAlphabetically(testCases[i])
         );
-        String expected = KitUtils.arrayToString(testResults[i]);
-        String message = expected + " | " + actual;
-        if (actual.equals(expected)) {
-          System.out.println(i + ": " + message);
-        } else {
-          isPassing = false;
-          System.err.println(i + ": " + message);
-        }
-      } catch (Exception e) {
-        isPassing = false;
-        System.err.println(i + ": " + e);
+        System.out.println(i + ": " + expected + " | " + actual);
+        assertNotNull(actual);
+        assertEquals(expected, actual);
       }
-    }
-
-    // Assessment
-    if (isPassing) {
-      System.out.println("Passed");
-    } else {
-      System.err.println("Failed");
-      fail();
-    }
+    };
+    TestUtils.runTest(test, testName, testCount);
   }
 
-  // [TEST] sortLengthSmallest()
   @Test
   void sortLengthSmallest() {
-    System.out.println("\n[TEST] Lambdas.class - sortLengthSmallest()");
-    System.out.println("==================================");
-    System.out.println("#Test | Expected | Actual");
+    Integer testCount = 1;
+String testName = "week1.day5 - Lambdas.class | sortLengthSmallest()";
 
-    // Setup
-    boolean isPassing = true;
+    // Test Cases
     String[][] testCases = {
       { "a", "yo-yo", "what", "seventy" },
       { "lorem", "ipsum", "two", "3" },
@@ -83,6 +67,8 @@ public class LambdasTest {
       { "test", "case", "running", "overload" },
       { "system", "jambon", "guinea", "pig" },
     };
+
+    // Test Results
     String[][] testResults = {
       { "a", "what", "yo-yo", "seventy" },
       { "3", "two", "lorem", "ipsum" },
@@ -92,43 +78,26 @@ public class LambdasTest {
     };
 
     // Test
-    for (int i = 0; i < testCases.length; i++) {
-      try {
-        String actual = KitUtils.arrayToString(
+    Runnable test = () -> {
+for (int i = 0; i < testCases.length; i++) {
+        String expected = KitUtils.toString(testResults[i]);
+        String actual = KitUtils.toString(
           Lambdas.sortLengthSmallest(testCases[i])
         );
-        String expected = KitUtils.arrayToString(testResults[i]);
-        String message = expected + " | " + actual;
-        if (actual.equals(expected)) {
-          System.out.println(i + ": " + message);
-        } else {
-          isPassing = false;
-          System.err.println(i + ": " + message);
-        }
-      } catch (Exception e) {
-        isPassing = false;
-        System.err.println(i + ": " + e);
+        System.out.println(i + ": " + expected + " | " + actual);
+        assertNotNull(actual);
+        assertEquals(expected, actual);
       }
-    }
-
-    // Assessment
-    if (isPassing) {
-      System.out.println("Passed");
-    } else {
-      System.err.println("Failed");
-      fail();
-    }
+    };
+    TestUtils.runTest(test, testName, testCount);
   }
 
-  // [TEST] sortLengthLargest()
   @Test
   void sortLengthLargest() {
-    System.out.println("\n[TEST] Lambdas.class - sortLengthLargest()");
-    System.out.println("==================================");
-    System.out.println("#Test | Expected | Actual");
+    Integer testCount = 1;
+String testName = "week1.day5 - Lambdas.class | sortLengthLargest()";
 
-    // Setup
-    boolean isPassing = true;
+    // Test Cases
     String[][] testCases = {
       { "a", "yo-yo", "what", "seventy" },
       { "lorem", "ipsum", "two", "3" },
@@ -136,6 +105,8 @@ public class LambdasTest {
       { "test", "case", "running", "overload" },
       { "system", "jambon", "guinea", "pig" },
     };
+
+    // Test Results
     String[][] testResults = {
       { "seventy", "yo-yo", "what", "a" },
       { "lorem", "ipsum", "two", "3" },
@@ -145,43 +116,26 @@ public class LambdasTest {
     };
 
     // Test
-    for (int i = 0; i < testCases.length; i++) {
-      try {
-        String actual = KitUtils.arrayToString(
+    Runnable test = () -> {
+for (int i = 0; i < testCases.length; i++) {
+        String expected = KitUtils.toString(testResults[i]);
+        String actual = KitUtils.toString(
           Lambdas.sortLengthLargest(testCases[i])
         );
-        String expected = KitUtils.arrayToString(testResults[i]);
-        String message = expected + " | " + actual;
-        if (actual.equals(expected)) {
-          System.out.println(i + ": " + message);
-        } else {
-          isPassing = false;
-          System.err.println(i + ": " + message);
-        }
-      } catch (Exception e) {
-        isPassing = false;
-        System.err.println(i + ": " + e);
+        System.out.println(i + ": " + expected + " | " + actual);
+        assertNotNull(actual);
+        assertEquals(expected, actual);
       }
-    }
-
-    // Assessment
-    if (isPassing) {
-      System.out.println("Passed");
-    } else {
-      System.err.println("Failed");
-      fail();
-    }
+    };
+    TestUtils.runTest(test, testName, testCount);
   }
 
-  // [TEST] sortWithE()
   @Test
   void sortWithE() {
-    System.out.println("\n[TEST] Lambdas.class - sortWithE()");
-    System.out.println("==================================");
-    System.out.println("#Test | Expected | Actual");
+    Integer testCount = 1;
+String testName = "week1.day5 - Lambdas.class | sortWithE()";
 
-    // Setup
-    boolean isPassing = true;
+    // Test Cases
     String[][] testCases = {
       { "a", "yo-yo", "what", "seventy" },
       { "lorem", "ipsum", "two", "3" },
@@ -189,6 +143,8 @@ public class LambdasTest {
       { "test", "case", "running", "overload" },
       { "system", "jambon", "guinea", "pig" },
     };
+
+    // Test Results
     String[][] testResults = {
       { "seventy", "a", "yo-yo", "what" },
       { "lorem", "ipsum", "two", "3" },
@@ -198,84 +154,51 @@ public class LambdasTest {
     };
 
     // Test
-    for (int i = 0; i < testCases.length; i++) {
-      try {
-        String actual = KitUtils.arrayToString(
-          Lambdas.sortWithE(testCases[i])
-        );
-        String expected = KitUtils.arrayToString(testResults[i]);
-        String message = expected + " | " + actual;
-        if (actual.equals(expected)) {
-          System.out.println(i + ": " + message);
-        } else {
-          isPassing = false;
-          System.err.println(i + ": " + message);
-        }
-      } catch (Exception e) {
-        isPassing = false;
-        System.err.println(i + ": " + e);
+    Runnable test = () -> {
+for (int i = 0; i < testCases.length; i++) {
+        String expected = KitUtils.toString(testResults[i]);
+        String actual = KitUtils.toString(Lambdas.sortWithE(testCases[i]));
+        System.out.println(i + ": " + expected + " | " + actual);
+        assertNotNull(actual);
+        assertEquals(expected, actual);
       }
-    }
-
-    // Assessment
-    if (isPassing) {
-      System.out.println("Passed");
-    } else {
-      System.err.println("Failed");
-      fail();
-    }
+    };
+    TestUtils.runTest(test, testName, testCount);
   }
 
-    // [TEST] sortWithEUtils()
-    @Test
-    void sortWithEUtils() {
-      System.out.println("\n[TEST] Lambdas.class - sortWithEUtils()");
-      System.out.println("==================================");
-      System.out.println("#Test | Expected | Actual");
-  
-      // Setup
-      boolean isPassing = true;
-      String[][] testCases = {
-        { "a", "yo-yo", "what", "seventy" },
-        { "lorem", "ipsum", "two", "3" },
-        { "hello", "world", "when", "penguin" },
-        { "test", "case", "running", "overload" },
-        { "system", "jambon", "guinea", "pig" },
-      };
-      String[][] testResults = {
-        { "seventy", "a", "yo-yo", "what" },
-        { "lorem", "ipsum", "two", "3" },
-        { "hello", "when", "penguin", "world" },
-        { "test", "case", "overload", "running" },
-        { "system", "guinea", "jambon", "pig" },
-      };
-  
-      // Test
-      for (int i = 0; i < testCases.length; i++) {
-        try {
-          String actual = KitUtils.arrayToString(
-            Lambdas.sortWithEUtils(testCases[i])
-          );
-          String expected = KitUtils.arrayToString(testResults[i]);
-          String message = expected + " | " + actual;
-          if (actual.equals(expected)) {
-            System.out.println(i + ": " + message);
-          } else {
-            isPassing = false;
-            System.err.println(i + ": " + message);
-          }
-        } catch (Exception e) {
-          isPassing = false;
-          System.err.println(i + ": " + e);
-        }
+  @Test
+  void sortWithEUtils() {
+    Integer testCount = 1;
+String testName = "week1.day5 - Lambdas.class | sortWithEUtils()";
+
+    // Test Cases
+    String[][] testCases = {
+      { "a", "yo-yo", "what", "seventy" },
+      { "lorem", "ipsum", "two", "3" },
+      { "hello", "world", "when", "penguin" },
+      { "test", "case", "running", "overload" },
+      { "system", "jambon", "guinea", "pig" },
+    };
+
+    // Test Results
+    String[][] testResults = {
+      { "seventy", "a", "yo-yo", "what" },
+      { "lorem", "ipsum", "two", "3" },
+      { "hello", "when", "penguin", "world" },
+      { "test", "case", "overload", "running" },
+      { "system", "guinea", "jambon", "pig" },
+    };
+
+    // Test
+    Runnable test = () -> {
+for (int i = 0; i < testCases.length; i++) {
+        String expected = KitUtils.toString(testResults[i]);
+        String actual = KitUtils.toString(Lambdas.sortWithEUtils(testCases[i]));
+        System.out.println(i + ": " + expected + " | " + actual);
+        assertNotNull(actual);
+        assertEquals(expected, actual);
       }
-  
-      // Assessment
-      if (isPassing) {
-        System.out.println("Passed");
-      } else {
-        System.err.println("Failed");
-        fail();
-      }
-    }
+    };
+    TestUtils.runTest(test, testName, testCount);
+  }
 }
